@@ -44,4 +44,10 @@
 
 		cursor: pointer;
 	}
+
+	.selected {
+		font-weight: $fw-josefin-sans-bold;
+		font-size: 1rem;
+		color: $bright-blue;
+	}
 }

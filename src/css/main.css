@@ -148,6 +148,11 @@ body {
   color: hsl(233deg, 14%, 35%);
   cursor: pointer;
 }
+.options .selected {
+  font-weight: 700;
+  font-size: 1rem;
+  color: hsl(220deg, 98%, 61%);
+}
 
 .instruction {
   font-family: "Josefin Sans", sans-serif;
