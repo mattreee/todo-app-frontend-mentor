@@ -1,0 +1,66 @@
+@use "./index" as *;
+
+.list {
+	font-family: $ff-josefin-sans;
+	font-size: $fs-josefin-sans;
+
+	background-color: $dark-very-dark-desatured-blue;
+	color: $dark-light-grayish-blue;
+	border-radius: 4px 4px 0 0;
+
+	box-shadow: 0 60px 25px 0 rgba(black, 0.35);
+
+	&__item {
+		padding: 1.1em 1.5rem;
+		padding-right: 0.5rem;
+		border-bottom: 1px solid $dark-darker-grayish-blue;
+
+		display: grid;
+		grid-template-columns: 2rem 1fr 2rem;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	&__icon {
+		cursor: pointer;
+	}
+
+	&__icon-container {
+		width: 1.85rem;
+		border: 1px solid $dark-darker-grayish-blue;
+		border-radius: 50%;
+		display: flex;
+		justify-content: center;
+	}
+
+	.check {
+		width: 1.7rem;
+		padding: 0.4em;
+
+		opacity: 0;
+	}
+
+	.checked {
+		background: $check-background;
+		border-radius: 50%;
+
+		opacity: 1;
+	}
+
+	.cross {
+		opacity: 0;
+	}
+
+	&__item:hover .cross {
+		opacity: 1;
+	}
+
+	&__text {
+		cursor: pointer;
+	}
+
+	.line-through {
+		text-decoration: line-through;
+		color: $dark-grayish-blue;
+	}
+}

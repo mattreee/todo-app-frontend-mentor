@@ -1,0 +1,15 @@
+@use "./index" as *;
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 5rem;
+
+	&__title {
+		font-family: $ff-josefin-sans;
+		font-size: 2rem;
+		letter-spacing: 0.85rem;
+		color: white;
+	}
+}

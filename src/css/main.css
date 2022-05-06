@@ -1,0 +1,174 @@
+body {
+  background-color: hsl(235deg, 21%, 11%);
+  background-image: url("../images/bg-desktop-dark.jpg");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.container {
+  width: clamp(350px, 30vw, 35vw);
+  margin: 0 auto;
+}
+
+@media only screen and (max-width: 800px) {
+  body {
+    background-image: url("../images/bg-mobile-dark.jpg");
+  }
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5rem;
+}
+.header__title {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 2rem;
+  letter-spacing: 0.85rem;
+  color: white;
+}
+
+.input {
+  display: flex;
+}
+.input__circle-container {
+  background-color: hsl(235deg, 24%, 19%);
+  margin: 1.5em 0;
+  width: 3rem;
+  border-radius: 4px 0 0 4px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  z-index: 22;
+}
+.input__circle {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  border: 1px solid hsl(237deg, 14%, 26%);
+}
+.input__input {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 18px;
+  box-shadow: -30px 20px 25px 0 rgba(0, 0, 0, 0.35);
+  margin: 1.5rem 0;
+  padding: 1em 2em;
+  padding-left: 0.4em;
+  width: 100%;
+  border: none;
+  outline: none;
+  border-radius: 0 4px 4px 0;
+  background-color: hsl(235deg, 24%, 19%);
+  color: hsl(234deg, 39%, 85%);
+}
+
+.list {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 18px;
+  background-color: hsl(235deg, 24%, 19%);
+  color: hsl(234deg, 39%, 85%);
+  border-radius: 4px 4px 0 0;
+  box-shadow: 0 60px 25px 0 rgba(0, 0, 0, 0.35);
+}
+.list__item {
+  padding: 1.1em 1.5rem;
+  padding-right: 0.5rem;
+  border-bottom: 1px solid hsl(237deg, 14%, 26%);
+  display: grid;
+  grid-template-columns: 2rem 1fr 2rem;
+  align-items: center;
+  gap: 1rem;
+}
+.list__icon {
+  cursor: pointer;
+}
+.list__icon-container {
+  width: 1.85rem;
+  border: 1px solid hsl(237deg, 14%, 26%);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+}
+.list .check {
+  width: 1.7rem;
+  padding: 0.4em;
+  opacity: 0;
+}
+.list .checked {
+  background: linear-gradient(to right, hsl(192deg, 100%, 67%), hsl(280deg, 87%, 65%));
+  border-radius: 50%;
+  opacity: 1;
+}
+.list .cross {
+  opacity: 0;
+}
+.list__item:hover .cross {
+  opacity: 1;
+}
+.list__text {
+  cursor: pointer;
+}
+.list .line-through {
+  text-decoration: line-through;
+  color: hsl(234deg, 11%, 52%);
+}
+
+.options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: hsl(235deg, 24%, 19%);
+  color: hsl(234deg, 39%, 85%);
+  border-radius: 0 0 4px 4px;
+  font-family: "Josefin Sans", sans-serif;
+  padding: 0.8em 1rem;
+}
+.options__items-left {
+  font-size: 0.8rem;
+}
+.options__buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+.options__button {
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  background: none;
+  border: none;
+  color: hsl(233deg, 14%, 35%);
+  cursor: pointer;
+}
+.options__clear {
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  background: none;
+  border: none;
+  color: hsl(233deg, 14%, 35%);
+  cursor: pointer;
+}
+
+.instruction {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 0.8rem;
+  margin: 2rem 0;
+  text-align: center;
+  color: hsl(234deg, 11%, 52%);
+}
+
+.attribution {
+  color: #ddd;
+  font-size: 11px;
+  text-align: center;
+}
+
+.attribution a {
+  color: hsl(228deg, 45%, 44%);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}/*# sourceMappingURL=main.css.map */

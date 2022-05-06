@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Title from "./components/Title";
+import Input from "./components/Input";
+import List from "./components/List";
+import Instruction from "./components/Instruction";
+import Attribution from "./components/Attribution";
+import { useState } from "react";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [list, setList] = useState([
+		{
+			id: Math.random(),
+			checked: false,
+			content: "some item text",
+		},
+		{
+			id: Math.random(),
+			checked: false,
+			content: "some item text2",
+		},
+	]);
+
+	return (
+		<div role="main" className="container">
+			<Title />
+			<Input list={list} setList={setList} />
+			<List list={list} setList={setList} />
+			<Instruction />
+			<Attribution />
+		</div>
+	);
 }
 
 export default App;

@@ -1,0 +1,11 @@
+@use "./index" as *;
+
+.instruction {
+	font-family: $ff-josefin-sans;
+	font-size: 0.8rem;
+
+	margin: 2rem 0;
+	text-align: center;
+
+	color: $dark-grayish-blue;
+}

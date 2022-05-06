@@ -1,0 +1,42 @@
+@use "./index" as *;
+
+.input {
+	display: flex;
+
+	&__circle-container {
+		background-color: $dark-very-dark-desatured-blue;
+		margin: 1.5em 0;
+		width: 3rem;
+		border-radius: 4px 0 0 4px;
+
+		display: grid;
+		place-items: center;
+
+		position: relative;
+		z-index: 22;
+	}
+
+	&__circle {
+		width: 1.5rem;
+		height: 1.5rem;
+		border-radius: 50%;
+		border: 1px solid $dark-darker-grayish-blue;
+	}
+
+	&__input {
+		font-family: $ff-josefin-sans;
+		font-size: $fs-josefin-sans;
+
+		box-shadow: -30px 20px 25px 0 rgba(black, 0.35);
+
+		margin: 1.5rem 0;
+		padding: 1em 2em;
+		padding-left: 0.4em;
+		width: 100%;
+		border: none;
+		outline: none;
+		border-radius: 0 4px 4px 0;
+		background-color: $dark-very-dark-desatured-blue;
+		color: $dark-light-grayish-blue;
+	}
+}

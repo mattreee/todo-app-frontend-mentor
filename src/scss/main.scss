@@ -1,0 +1,13 @@
+@use "./body";
+@use "./header";
+@use "./input";
+@use "./list";
+@use "./options";
+@use "./instruction";
+@use "./attribution";
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}

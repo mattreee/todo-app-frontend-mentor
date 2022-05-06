@@ -1,0 +1,47 @@
+@use "./index" as *;
+
+.options {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	background-color: $dark-very-dark-desatured-blue;
+	color: $dark-light-grayish-blue;
+	border-radius: 0 0 4px 4px;
+
+	font-family: $ff-josefin-sans;
+	padding: 0.8em 1rem;
+
+	&__items-left {
+		font-size: 0.8rem;
+	}
+
+	&__buttons {
+		display: flex;
+		gap: 0.5rem;
+	}
+
+	&__button {
+		font-family: $ff-josefin-sans;
+		font-weight: $fw-josefin-sans-bold;
+		font-size: 0.95rem;
+
+		background: none;
+		border: none;
+		color: $dark-very-dark-grayish-blue;
+
+		cursor: pointer;
+	}
+
+	&__clear {
+		font-family: $ff-josefin-sans;
+		font-weight: $fw-josefin-sans-bold;
+		font-size: 0.8rem;
+
+		background: none;
+		border: none;
+		color: $dark-very-dark-grayish-blue;
+
+		cursor: pointer;
+	}
+}
