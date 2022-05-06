@@ -11,6 +11,32 @@ const List = ({ list, setList }: any) => {
 
 	// added this counter to rerender the list, since just updating the state in the app component is not triggering a rerender here.
 	const [, setCounterUpdater] = useState(0);
+	const [filteringOption, setFilteringOption] = useState("all");
+	const [filteredList, setFilteredList] = useState(list);
+
+	const handleFiltering = () => {
+		if (filteringOption === "all") {
+			setFilteredList(list);
+		}
+
+		if (filteringOption === "active") {
+			const newList = list.filter((elem: any) => {
+				return elem.checked === false;
+			});
+
+			setFilteredList(newList);
+		}
+
+		if (filteringOption === "completed") {
+			const newList = list.filter((elem: any) => {
+				return elem.checked === true;
+			});
+
+			setFilteredList(newList);
+		}
+
+		setCounterUpdater((prevState) => prevState + 1);
+	};
 
 	const changeChecked = (index: number) => {
 		const newList = list;
@@ -49,16 +75,18 @@ const List = ({ list, setList }: any) => {
 
 	useEffect(() => {
 		window.addEventListener("click", optionSort);
+		window.addEventListener("click", handleFiltering);
 
 		return () => {
 			window.removeEventListener("click", optionSort);
+			window.removeEventListener("click", handleFiltering);
 		};
 	});
 
 	return (
 		<div>
 			<div className="list">
-				{list.map((elem: any, index: any) => {
+				{filteredList.map((elem: any, index: any) => {
 					return (
 						<div className="list__item" key={String(elem.id)}>
 							<div className="list__icon-container">
@@ -86,13 +114,25 @@ const List = ({ list, setList }: any) => {
 			<div className="options">
 				<p className="options__items-left">{list.length} Items left</p>
 				<div className="options__buttons">
-					<button id="button-all" className="options__button selected">
+					<button
+						id="button-all"
+						className="options__button selected"
+						onClick={() => setFilteringOption("all")}
+					>
 						All
 					</button>
-					<button id="button-active" className="options__button">
+					<button
+						id="button-active"
+						className="options__button"
+						onClick={() => setFilteringOption("active")}
+					>
 						Active
 					</button>
-					<button id="button-completed" className="options__button">
+					<button
+						id="button-completed"
+						className="options__button"
+						onClick={() => setFilteringOption("completed")}
+					>
 						Completed
 					</button>
 				</div>
