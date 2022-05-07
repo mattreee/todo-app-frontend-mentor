@@ -2,6 +2,10 @@
 	color: #ddd;
 	font-size: 11px;
 	text-align: center;
+
+	&.light {
+		color: #222;
+	}
 }
 
 .attribution a {

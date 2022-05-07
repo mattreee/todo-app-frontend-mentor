@@ -1,8 +1,12 @@
-body {
+.body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
   background-color: hsl(235deg, 21%, 11%);
   background-image: url("../images/bg-desktop-dark.jpg");
   background-repeat: no-repeat;
   background-size: contain;
+  transition: 150ms;
 }
 
 .container {
@@ -10,9 +14,18 @@ body {
   margin: 0 auto;
 }
 
+.body.light {
+  background-color: hsl(236deg, 33%, 92%);
+  background-image: url("../images/bg-desktop-light.jpg");
+}
+
 @media only screen and (max-width: 800px) {
-  body {
+  .body {
     background-image: url("../images/bg-mobile-dark.jpg");
+  }
+
+  .body.light {
+    background-image: url("../images/bg-mobile-light.jpg");
   }
 }
 .header {
@@ -26,6 +39,9 @@ body {
   font-size: 2rem;
   letter-spacing: 0.85rem;
   color: white;
+}
+.header__icon {
+  cursor: pointer;
 }
 
 .input {
@@ -41,11 +57,17 @@ body {
   position: relative;
   z-index: 22;
 }
+.input__circle-container.light {
+  background-color: hsl(0deg, 0%, 98%);
+}
 .input__circle {
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 50%;
   border: 1px solid hsl(237deg, 14%, 26%);
+}
+.input__circle.light {
+  border: 1px solid hsl(233deg, 11%, 84%);
 }
 .input__input {
   font-family: "Josefin Sans", sans-serif;
@@ -61,6 +83,11 @@ body {
   background-color: hsl(235deg, 24%, 19%);
   color: hsl(234deg, 39%, 85%);
 }
+.input__input.light {
+  box-shadow: none;
+  background-color: hsl(0deg, 0%, 98%);
+  color: hsl(235deg, 19%, 35%);
+}
 
 .list {
   font-family: "Josefin Sans", sans-serif;
@@ -69,6 +96,11 @@ body {
   color: hsl(234deg, 39%, 85%);
   border-radius: 4px 4px 0 0;
   box-shadow: 0 60px 25px 0 rgba(0, 0, 0, 0.35);
+}
+.list.light {
+  background-color: hsl(0deg, 0%, 98%);
+  color: hsl(235deg, 19%, 35%);
+  box-shadow: 0 60px 25px 0 rgba(0, 0, 0, 0.15);
 }
 .list__item {
   padding: 1.1em 1.5rem;
@@ -79,6 +111,9 @@ body {
   align-items: center;
   gap: 1rem;
 }
+.list__item.light {
+  border-bottom: 1px solid hsl(236deg, 9%, 61%);
+}
 .list__icon {
   cursor: pointer;
 }
@@ -88,6 +123,9 @@ body {
   border-radius: 50%;
   display: flex;
   justify-content: center;
+}
+.list__icon-container.light {
+  border: 1px solid hsl(233deg, 11%, 84%);
 }
 .list .check {
   width: 1.7rem;
@@ -124,8 +162,14 @@ body {
   font-family: "Josefin Sans", sans-serif;
   padding: 0.8em 1rem;
 }
+.options.light {
+  background-color: hsl(0deg, 0%, 98%);
+}
 .options__items-left {
   font-size: 0.8rem;
+}
+.options__items-left.light {
+  color: hsl(236deg, 9%, 61%);
 }
 .options__buttons {
   display: flex;
@@ -140,6 +184,15 @@ body {
   color: hsl(233deg, 14%, 35%);
   cursor: pointer;
 }
+.options__button:hover {
+  color: white;
+}
+.options__button.light {
+  color: hsl(236deg, 9%, 61%);
+}
+.options__button.light:hover {
+  color: hsl(235deg, 19%, 35%);
+}
 .options__clear {
   font-family: "Josefin Sans", sans-serif;
   font-weight: 700;
@@ -148,6 +201,12 @@ body {
   border: none;
   color: hsl(233deg, 14%, 35%);
   cursor: pointer;
+}
+.options__clear.light {
+  color: hsl(236deg, 9%, 61%);
+}
+.options__clear.light:hover {
+  color: hsl(235deg, 19%, 35%);
 }
 .options .selected {
   font-weight: 700;
@@ -167,6 +226,9 @@ body {
   color: #ddd;
   font-size: 11px;
   text-align: center;
+}
+.attribution.light {
+  color: #222;
 }
 
 .attribution a {

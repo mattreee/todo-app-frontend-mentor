@@ -12,8 +12,16 @@
 	font-family: $ff-josefin-sans;
 	padding: 0.8em 1rem;
 
+	&.light {
+		background-color: $light-very-light-gray;
+	}
+
 	&__items-left {
 		font-size: 0.8rem;
+
+		&.light {
+			color: $light-dark-grayish-blue;
+		}
 	}
 
 	&__buttons {
@@ -31,6 +39,18 @@
 		color: $dark-very-dark-grayish-blue;
 
 		cursor: pointer;
+
+		&:hover {
+			color: white;
+		}
+
+		&.light {
+			color: $light-dark-grayish-blue;
+
+			&:hover {
+				color: $light-very-dark-grayish-blue;
+			}
+		}
 	}
 
 	&__clear {
@@ -43,6 +63,14 @@
 		color: $dark-very-dark-grayish-blue;
 
 		cursor: pointer;
+
+		&.light {
+			color: $light-dark-grayish-blue;
+
+			&:hover {
+				color: $light-very-dark-grayish-blue;
+			}
+		}
 	}
 
 	.selected {

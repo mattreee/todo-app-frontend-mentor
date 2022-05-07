@@ -2,17 +2,26 @@ import IconCheck from "../images/icon-check.svg";
 import IconCross from "../images/icon-cross.svg";
 import { useState, useEffect } from "react";
 
-const List = ({ list, setList }: any) => {
+const List = ({ list, setList, darkTheme }: any) => {
+	// added this counter to rerender the list, since just updating the state in the app component is not triggering a rerender here.
+	const [, setCounterUpdater] = useState(0);
+	const [inputContent, setInputContent] = useState("");
+	const [filteredList, setFilteredList] = useState(list);
+	const [filteringOption, setFilteringOption] = useState("all");
+	const [itemsLeft, setItemsLeft] = useState(0);
+
 	const checkedTrue = "list__icon check checked";
 	const checkedFalse = "list__icon check";
-
 	const textTrue = "list__text line-through";
 	const textFalse = "list__text";
 
-	// added this counter to rerender the list, since just updating the state in the app component is not triggering a rerender here.
-	const [, setCounterUpdater] = useState(0);
-	const [filteringOption, setFilteringOption] = useState("all");
-	const [filteredList, setFilteredList] = useState(list);
+	const handleItemsLeft = () => {
+		const newAmount = list.filter((elem: any) => {
+			return elem.checked === false;
+		});
+
+		setItemsLeft(newAmount.length);
+	};
 
 	const handleFiltering = () => {
 		if (filteringOption === "all") {
@@ -35,6 +44,7 @@ const List = ({ list, setList }: any) => {
 			setFilteredList(newList);
 		}
 
+		handleItemsLeft();
 		setCounterUpdater((prevState) => prevState + 1);
 	};
 
@@ -83,13 +93,64 @@ const List = ({ list, setList }: any) => {
 		};
 	});
 
+	useEffect(() => {
+		handleItemsLeft();
+
+		window.addEventListener("keydown", (e: any) => {
+			if (e.keyCode === 13) {
+				setList([
+					...list,
+					{
+						id: Math.random(),
+						checked: false,
+						content: inputContent,
+					},
+				]);
+
+				setFilteredList(list);
+				setFilteringOption("all");
+				e.target.value = "";
+				handleFiltering();
+			}
+		});
+	});
+
 	return (
 		<div>
-			<div className="list">
+			<div className="input">
+				<div
+					className={
+						darkTheme
+							? "input__circle-container"
+							: "input__circle-container light"
+					}
+				>
+					<div className={darkTheme ? "input__circle" : "input__circle light"}>
+						&nbsp;
+					</div>
+				</div>
+				<input
+					className={darkTheme ? "input__input" : "input__input light"}
+					type="text"
+					placeholder="Create a new todo..."
+					onChange={(e) => setInputContent(e.target.value)}
+				/>
+			</div>
+
+			<div className={darkTheme ? "list" : "list light"}>
 				{filteredList.map((elem: any, index: any) => {
 					return (
-						<div className="list__item" key={String(elem.id)}>
-							<div className="list__icon-container">
+						<div
+							className={darkTheme ? "list__item" : "list__item light"}
+							key={String(elem.id)}
+						>
+							<div
+								className={
+									darkTheme
+										? "list__icon-container"
+										: "list__icon-container light"
+								}
+							>
 								<img
 									className={elem.checked ? checkedTrue : checkedFalse}
 									src={IconCheck}
@@ -111,32 +172,46 @@ const List = ({ list, setList }: any) => {
 				})}
 			</div>
 
-			<div className="options">
-				<p className="options__items-left">{list.length} Items left</p>
+			<div className={darkTheme ? "options" : "options light"}>
+				<p
+					className={
+						darkTheme ? "options__items-left" : "options__items-left light"
+					}
+				>
+					{itemsLeft} Items left
+				</p>
 				<div className="options__buttons">
 					<button
 						id="button-all"
-						className="options__button selected"
+						className={
+							darkTheme
+								? "options__button selected"
+								: "options__button light selected"
+						}
 						onClick={() => setFilteringOption("all")}
 					>
 						All
 					</button>
 					<button
 						id="button-active"
-						className="options__button"
+						className={darkTheme ? "options__button" : "options__button light"}
 						onClick={() => setFilteringOption("active")}
 					>
 						Active
 					</button>
 					<button
 						id="button-completed"
-						className="options__button"
+						className={darkTheme ? "options__button" : "options__button light"}
 						onClick={() => setFilteringOption("completed")}
 					>
 						Completed
 					</button>
 				</div>
-				<button className="options__clear">Clear Completed</button>
+				<button
+					className={darkTheme ? "options__clear" : "options__clear light"}
+				>
+					Clear Completed
+				</button>
 			</div>
 		</div>
 	);

@@ -10,6 +10,13 @@
 
 	box-shadow: 0 60px 25px 0 rgba(black, 0.35);
 
+	&.light {
+		background-color: $light-very-light-gray;
+		color: $light-very-dark-grayish-blue;
+
+		box-shadow: 0 60px 25px 0 rgba(black, 0.15);
+	}
+
 	&__item {
 		padding: 1.1em 1.5rem;
 		padding-right: 0.5rem;
@@ -19,6 +26,10 @@
 		grid-template-columns: 2rem 1fr 2rem;
 		align-items: center;
 		gap: 1rem;
+
+		&.light {
+			border-bottom: 1px solid $light-dark-grayish-blue;
+		}
 	}
 
 	&__icon {
@@ -31,6 +42,10 @@
 		border-radius: 50%;
 		display: flex;
 		justify-content: center;
+
+		&.light {
+			border: 1px solid $light-grayish-blue;
+		}
 	}
 
 	.check {
