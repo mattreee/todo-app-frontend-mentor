@@ -2,18 +2,47 @@ import IconCheck from "../images/icon-check.svg";
 import IconCross from "../images/icon-cross.svg";
 import { useState, useEffect } from "react";
 
-const List = ({ list, setList, darkTheme }: any) => {
-	// added this counter to rerender the list, since just updating the state in the app component is not triggering a rerender here.
-	const [, setCounterUpdater] = useState(0);
-	const [inputContent, setInputContent] = useState("");
-	const [filteredList, setFilteredList] = useState(list);
+const List = ({ darkTheme }: any) => {
+	const [list, setList] = useState([
+		{
+			id: Math.random(),
+			checked: false,
+			content: "some item text",
+		},
+		{
+			id: Math.random(),
+			checked: false,
+			content: "some item text2",
+		},
+	]);
+
 	const [filteringOption, setFilteringOption] = useState("all");
 	const [itemsLeft, setItemsLeft] = useState(0);
+	const [listCopy, setListCopy] = useState(list);
+
+	const [, setCounterUpdater] = useState(0);
 
 	const checkedTrue = "list__icon check checked";
 	const checkedFalse = "list__icon check";
 	const textTrue = "list__text line-through";
 	const textFalse = "list__text";
+
+	const handleEnter = (e: any) => {
+		if (e.keyCode === 13) {
+			if (e.target.value === "") return;
+
+			setList(() => [
+				...list,
+				{
+					id: Math.random(),
+					checked: false,
+					content: e.target.value,
+				},
+			]);
+
+			setListCopy(list);
+		}
+	};
 
 	const handleItemsLeft = () => {
 		const newAmount = list.filter((elem: any) => {
@@ -24,8 +53,12 @@ const List = ({ list, setList, darkTheme }: any) => {
 	};
 
 	const handleFiltering = () => {
+		if (listCopy !== list) {
+			setList(listCopy);
+		}
+
 		if (filteringOption === "all") {
-			setFilteredList(list);
+			setList(list);
 		}
 
 		if (filteringOption === "active") {
@@ -33,7 +66,7 @@ const List = ({ list, setList, darkTheme }: any) => {
 				return elem.checked === false;
 			});
 
-			setFilteredList(newList);
+			setList(newList);
 		}
 
 		if (filteringOption === "completed") {
@@ -41,31 +74,13 @@ const List = ({ list, setList, darkTheme }: any) => {
 				return elem.checked === true;
 			});
 
-			setFilteredList(newList);
+			setList(newList);
 		}
 
 		handleItemsLeft();
-		setCounterUpdater((prevState) => prevState + 1);
 	};
 
-	const changeChecked = (index: number) => {
-		const newList = list;
-		newList[index].checked = !list[index].checked;
-
-		setList(newList);
-		setCounterUpdater((prevState) => prevState + 1);
-	};
-
-	const deleteItem = (index: number) => {
-		const newList = list.filter((elem: any, newIndex: number) => {
-			return newIndex !== index;
-		});
-
-		setList(newList);
-		setCounterUpdater((prevState) => prevState + 1);
-	};
-
-	const optionSort = (e: any) => {
+	const handleOptionsSort = (e: any) => {
 		const all = document.querySelector("#button-all");
 		const active = document.querySelector("#button-active");
 		const completed = document.querySelector("#button-completed");
@@ -83,36 +98,39 @@ const List = ({ list, setList, darkTheme }: any) => {
 		}
 	};
 
+	const handleChecked = (index: number) => {
+		const newList = list;
+		newList[index].checked = !list[index].checked;
+
+		setList(newList);
+		setCounterUpdater((prevState: any) => prevState + 1);
+	};
+
+	const handleDelete = (index: number) => {
+		const newList = list.filter((elem: any, newIndex: number) => {
+			return newIndex !== index;
+		});
+
+		setList(newList);
+		setCounterUpdater((prevState: any) => prevState + 1);
+	};
+
 	useEffect(() => {
-		window.addEventListener("click", optionSort);
+		window.addEventListener("click", handleOptionsSort);
 		window.addEventListener("click", handleFiltering);
 
 		return () => {
-			window.removeEventListener("click", optionSort);
+			window.removeEventListener("click", handleOptionsSort);
 			window.removeEventListener("click", handleFiltering);
 		};
 	});
 
 	useEffect(() => {
+		window.addEventListener("keydown", handleEnter);
+	});
+
+	useEffect(() => {
 		handleItemsLeft();
-
-		window.addEventListener("keydown", (e: any) => {
-			if (e.keyCode === 13) {
-				setList([
-					...list,
-					{
-						id: Math.random(),
-						checked: false,
-						content: inputContent,
-					},
-				]);
-
-				setFilteredList(list);
-				setFilteringOption("all");
-				e.target.value = "";
-				handleFiltering();
-			}
-		});
 	});
 
 	return (
@@ -133,12 +151,11 @@ const List = ({ list, setList, darkTheme }: any) => {
 					className={darkTheme ? "input__input" : "input__input light"}
 					type="text"
 					placeholder="Create a new todo..."
-					onChange={(e) => setInputContent(e.target.value)}
 				/>
 			</div>
 
 			<div className={darkTheme ? "list" : "list light"}>
-				{filteredList.map((elem: any, index: any) => {
+				{list.map((elem: any, index: any) => {
 					return (
 						<div
 							className={darkTheme ? "list__item" : "list__item light"}
@@ -155,7 +172,7 @@ const List = ({ list, setList, darkTheme }: any) => {
 									className={elem.checked ? checkedTrue : checkedFalse}
 									src={IconCheck}
 									alt=""
-									onClick={() => changeChecked(index)}
+									onClick={() => handleChecked(index)}
 								/>
 							</div>
 							<p className={elem.checked ? textTrue : textFalse}>
@@ -165,7 +182,7 @@ const List = ({ list, setList, darkTheme }: any) => {
 								className="list__icon cross"
 								src={IconCross}
 								alt=""
-								onClick={() => deleteItem(index)}
+								onClick={() => handleDelete(index)}
 							/>
 						</div>
 					);
