@@ -26,6 +26,8 @@ const List = ({ darkTheme }: any) => {
 	const textTrue = "list__text line-through";
 	const textFalse = "list__text";
 
+	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
 	const handleEnter = (e: any) => {
 		if (e.keyCode === 13) {
 			if (inputContent === "") return;
@@ -152,6 +154,10 @@ const List = ({ darkTheme }: any) => {
 
 	useEffect(() => {
 		handleItemsLeft();
+
+		window.addEventListener("resize", () => {
+			setWindowWidth(window.innerWidth);
+		});
 	});
 
 	return (
@@ -219,33 +225,39 @@ const List = ({ darkTheme }: any) => {
 				>
 					{itemsLeft} Items left
 				</p>
-				<div className="options__buttons">
-					<button
-						id="button-all"
-						className={
-							darkTheme
-								? "options__button selected"
-								: "options__button light selected"
-						}
-						onClick={() => setFilteringOption("all")}
-					>
-						All
-					</button>
-					<button
-						id="button-active"
-						className={darkTheme ? "options__button" : "options__button light"}
-						onClick={() => setFilteringOption("active")}
-					>
-						Active
-					</button>
-					<button
-						id="button-completed"
-						className={darkTheme ? "options__button" : "options__button light"}
-						onClick={() => setFilteringOption("completed")}
-					>
-						Completed
-					</button>
-				</div>
+				{windowWidth > 800 && (
+					<div className="options__buttons">
+						<button
+							id="button-all"
+							className={
+								darkTheme
+									? "options__button selected"
+									: "options__button light selected"
+							}
+							onClick={() => setFilteringOption("all")}
+						>
+							All
+						</button>
+						<button
+							id="button-active"
+							className={
+								darkTheme ? "options__button" : "options__button light"
+							}
+							onClick={() => setFilteringOption("active")}
+						>
+							Active
+						</button>
+						<button
+							id="button-completed"
+							className={
+								darkTheme ? "options__button" : "options__button light"
+							}
+							onClick={() => setFilteringOption("completed")}
+						>
+							Completed
+						</button>
+					</div>
+				)}
 				<button
 					className={darkTheme ? "options__clear" : "options__clear light"}
 					onClick={clearCompleted}
@@ -253,6 +265,48 @@ const List = ({ darkTheme }: any) => {
 					Clear Completed
 				</button>
 			</div>
+
+			{windowWidth < 800 && (
+				<div
+					className={
+						darkTheme
+							? "options__buttons-mobile"
+							: "options__buttons-mobile light"
+					}
+				>
+					<div className="options__buttons">
+						<button
+							id="button-all"
+							className={
+								darkTheme
+									? "options__button selected"
+									: "options__button light selected"
+							}
+							onClick={() => setFilteringOption("all")}
+						>
+							All
+						</button>
+						<button
+							id="button-active"
+							className={
+								darkTheme ? "options__button" : "options__button light"
+							}
+							onClick={() => setFilteringOption("active")}
+						>
+							Active
+						</button>
+						<button
+							id="button-completed"
+							className={
+								darkTheme ? "options__button" : "options__button light"
+							}
+							onClick={() => setFilteringOption("completed")}
+						>
+							Completed
+						</button>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 };

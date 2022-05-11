@@ -64,6 +64,10 @@
 
 		cursor: pointer;
 
+		&:hover {
+			color: $dark-light-grayish-blue-hover;
+		}
+
 		&.light {
 			color: $light-dark-grayish-blue;
 
@@ -77,5 +81,20 @@
 		font-weight: $fw-josefin-sans-bold;
 		font-size: 1rem;
 		color: $bright-blue;
+	}
+
+	&__buttons-mobile {
+		background-color: $dark-very-dark-desatured-blue;
+		margin-top: 1rem;
+		padding: 0.8em 0;
+		display: flex;
+		justify-content: center;
+
+		border-radius: 4px;
+
+		&.light {
+			background-color: $light-very-light-gray;
+			box-shadow: 0 10px 15px 0 rgba(black, 0.1);
+		}
 	}
 }
