@@ -50,8 +50,6 @@ const List = ({ darkTheme }: any) => {
 
 			e.target.value = "";
 			setInputContent("");
-
-			console.log(list, refList.current);
 		}
 	};
 
@@ -119,6 +117,15 @@ const List = ({ darkTheme }: any) => {
 	const handleDelete = (index: number) => {
 		const newList = list.filter((elem: any, newIndex: number) => {
 			return newIndex !== index;
+		});
+
+		setList(newList);
+		refList.current = newList;
+	};
+
+	const clearCompleted = () => {
+		const newList = list.filter((elem: any) => {
+			return elem.checked === false;
 		});
 
 		setList(newList);
@@ -241,6 +248,7 @@ const List = ({ darkTheme }: any) => {
 				</div>
 				<button
 					className={darkTheme ? "options__clear" : "options__clear light"}
+					onClick={clearCompleted}
 				>
 					Clear Completed
 				</button>
