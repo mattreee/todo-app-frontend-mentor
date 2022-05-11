@@ -1,26 +1,25 @@
 import IconCheck from "../images/icon-check.svg";
 import IconCross from "../images/icon-cross.svg";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const List = ({ darkTheme }: any) => {
 	const [list, setList] = useState([
 		{
 			id: Math.random(),
 			checked: false,
-			content: "some item text",
+			content: "item text",
 		},
 		{
 			id: Math.random(),
 			checked: false,
-			content: "some item text2",
+			content: "item text2",
 		},
 	]);
 
 	const [filteringOption, setFilteringOption] = useState("all");
 	const [itemsLeft, setItemsLeft] = useState(0);
-	const [listCopy, setListCopy] = useState(list);
-
-	const [, setCounterUpdater] = useState(0);
+	const [inputContent, setInputContent] = useState("");
+	const refList = useRef(list);
 
 	const checkedTrue = "list__icon check checked";
 	const checkedFalse = "list__icon check";
@@ -29,19 +28,35 @@ const List = ({ darkTheme }: any) => {
 
 	const handleEnter = (e: any) => {
 		if (e.keyCode === 13) {
-			if (e.target.value === "") return;
+			if (inputContent === "") return;
 
-			setList(() => [
+			setList([
 				...list,
 				{
 					id: Math.random(),
 					checked: false,
-					content: e.target.value,
+					content: inputContent,
 				},
 			]);
 
-			setListCopy(list);
+			refList.current = [
+				...list,
+				{
+					id: Math.random(),
+					checked: false,
+					content: inputContent,
+				},
+			];
+
+			e.target.value = "";
+			setInputContent("");
+
+			console.log(list, refList.current);
 		}
+	};
+
+	const handleInput = (e: any) => {
+		setInputContent(e.target.value);
 	};
 
 	const handleItemsLeft = () => {
@@ -53,12 +68,8 @@ const List = ({ darkTheme }: any) => {
 	};
 
 	const handleFiltering = () => {
-		if (listCopy !== list) {
-			setList(listCopy);
-		}
-
 		if (filteringOption === "all") {
-			setList(list);
+			setList(refList.current);
 		}
 
 		if (filteringOption === "active") {
@@ -103,7 +114,6 @@ const List = ({ darkTheme }: any) => {
 		newList[index].checked = !list[index].checked;
 
 		setList(newList);
-		setCounterUpdater((prevState: any) => prevState + 1);
 	};
 
 	const handleDelete = (index: number) => {
@@ -112,7 +122,7 @@ const List = ({ darkTheme }: any) => {
 		});
 
 		setList(newList);
-		setCounterUpdater((prevState: any) => prevState + 1);
+		refList.current = newList;
 	};
 
 	useEffect(() => {
@@ -127,6 +137,10 @@ const List = ({ darkTheme }: any) => {
 
 	useEffect(() => {
 		window.addEventListener("keydown", handleEnter);
+
+		return () => {
+			window.removeEventListener("keydown", handleEnter);
+		};
 	});
 
 	useEffect(() => {
@@ -151,6 +165,7 @@ const List = ({ darkTheme }: any) => {
 					className={darkTheme ? "input__input" : "input__input light"}
 					type="text"
 					placeholder="Create a new todo..."
+					onInput={(e) => handleInput(e)}
 				/>
 			</div>
 
